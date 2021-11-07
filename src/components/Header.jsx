@@ -4,7 +4,7 @@ function Header() {
     return (
         <header>
             <h1>
-                <strong> Keeper</strong> of the ligth
+                <span>Keeper</span> of the ligth
             </h1>
         </header>
     );
