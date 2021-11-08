@@ -17,7 +17,6 @@ function App() {
         );
     }
 
-    console.log(notes);
     return (
         <div>
             <Header />

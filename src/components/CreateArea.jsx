@@ -1,8 +1,12 @@
 import React, { useState } from "react";
+import AddIcon from "@material-ui/icons/Add";
+import Fab from "@material-ui/core/Fab";
+import Zoom from "@material-ui/core/Zoom";
 
 function CreateArea(props) {
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
+    const [showComponent, setShowComponent] = useState(false);
 
     function handleChange(e) {
         const { name, value } = e.target;
@@ -12,30 +16,35 @@ function CreateArea(props) {
 
     return (
         <div>
-            <form>
-                <input
-                    onChange={handleChange}
-                    name="title"
-                    placeholder="Title"
-                    value={title}
-                />
+            <form className="create-note">
+                {showComponent && (
+                    <input
+                        onChange={handleChange}
+                        name="title"
+                        placeholder="Title"
+                        value={title}
+                    />
+                )}
                 <textarea
+                    onClick={() => setShowComponent(true)}
                     onChange={handleChange}
                     name="content"
                     placeholder="Take a note..."
-                    rows="3"
+                    rows={showComponent ? "3" : "1"}
                     value={content}
                 />
-                <button
-                    onClick={(e) => {
-                        props.addNote({ title: title, content: content });
-                        e.preventDefault();
-                        setTitle("");
-                        setContent("");
-                    }}
-                >
-                    Add
-                </button>
+                <Zoom in={showComponent}>
+                    <Fab
+                        onClick={(e) => {
+                            props.addNote({ title: title, content: content });
+                            e.preventDefault();
+                            setTitle("");
+                            setContent("");
+                        }}
+                    >
+                        <AddIcon />
+                    </Fab>
+                </Zoom>
             </form>
         </div>
     );
